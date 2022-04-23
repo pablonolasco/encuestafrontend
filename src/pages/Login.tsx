@@ -8,6 +8,7 @@ import Card from 'react-bootstrap/Card';
 import React,{ useState } from "react";
 import { loginUsuario } from '../services/UserService';
 import Alert from "react-bootstrap/Alert";
+import { useAuthState, useAuthDispatch } from '../context/authContext';
 
 const Login = () => {
 
@@ -16,6 +17,15 @@ const Login = () => {
     const [error, setError] = useState<any>("");
     const [enviandoPeticion,setEnviandoPeticion]= useState(false);
 
+    const authDispatch= useAuthDispatch();
+    const usuario=useAuthState();
+
+    console.log(usuario)
+    /**
+     * Metodo para iniciar sesion 
+     * Se comunica con @link UserService.ts
+     * @param e 
+     */
     const login = async (e: React.SyntheticEvent) => {
         e.preventDefault();
         try {
@@ -23,8 +33,10 @@ const Login = () => {
               setError("");
               const res=await loginUsuario(email,password);
               const {token}=res.data
-              console.log(token);
-              setEnviandoPeticion(false);
+              authDispatch({
+                  type: 'login',
+                  token
+              });
         } catch (error: any) {
             if (error.response) {
                 error.response.status === 403 && setError("No se puede iniciar sesión con esas credenciales");
@@ -34,6 +46,9 @@ const Login = () => {
       
     }
 
+    /**
+     * Componente
+     */
     return (
         <Container>
             <Row>

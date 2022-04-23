@@ -21,6 +21,15 @@ RUN npm install react-bootstrap bootstrap
 # install npm dependencies
 RUN npm install axios
 
+# install npm dependencies
+RUN npm install jwt-decode
+
+# install npm dependencies
+RUN npm install immer
+
+# install npm dependencies
+RUN npm install react-router-dom @types/react-router-dom
+
 # copy other project files
 COPY . .
 

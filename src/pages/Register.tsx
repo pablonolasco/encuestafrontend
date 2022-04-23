@@ -6,8 +6,8 @@ import Button from 'react-bootstrap/Button';
 import Spinner from 'react-bootstrap/Spinner';
 import Card from 'react-bootstrap/Card';
 import React,{ useState } from "react";
-import { registrarUsuario } from '../services/UserService';
-
+import { registrarUsuario, loginUsuario } from '../services/UserService';
+import { useAuthDispatch } from '../context/authContext';
 
 const Register = () => {
 
@@ -16,6 +16,7 @@ const Register = () => {
     const [password, setPassword] = useState("");
     const [errors, setErrors] = useState<any>({});
     const [enviandoPeticion,setEnviandoPeticion]= useState(false);
+    const authDispatch= useAuthDispatch();
 
     const crearCuenta = async (e: React.SyntheticEvent) => {
         e.preventDefault();
@@ -23,6 +24,12 @@ const Register = () => {
               setEnviandoPeticion(true);
               await registrarUsuario(nombre,email,password);
               // ==redireccionar a dashboard
+              const res=await loginUsuario(email,password);
+              const {token}=res.data
+              authDispatch({
+                  type: 'login',
+                  token
+              });
         } catch (error: any) {
             setErrors(error.response.data.errors);
             setEnviandoPeticion(false);
