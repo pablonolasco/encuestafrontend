@@ -1,12 +1,12 @@
-import {createContext, Dispatch, FC, ReactNode, useContext, useReducer} from 'react';
+import { createContext, Dispatch, FC, ReactNode, useContext, useReducer } from "react";
 import { AuthActions } from '../state/actions/authActions';
 import { authIniciarState, AuthReducer } from '../state/reducers/authReducers';
-import { Usuario } from '../types/index';
+import { Usuario } from '../types';
 
 // == crear el contexto
 export const AuthStateContext = createContext<Usuario>(authIniciarState);
 // == el dispatch ejecuta la accion o la funcion
-export const AuthDispatchContext= createContext<Dispatch<AuthActions>>(()=> undefined);
+export const AuthDispatchContext = createContext<Dispatch<AuthActions>>(() => undefined);
 
 interface AuthProviderProps { 
     children: ReactNode
@@ -17,15 +17,15 @@ interface AuthProviderProps {
  * @param 
  * @returns 
  */
-export const AuthProvider:FC<AuthProviderProps> = ({children}) => {
-    const [user,dispatch] = useReducer(AuthReducer,authIniciarState);
+ export const AuthProvider:FC<AuthProviderProps> = ({ children }) => {
+    const [usuario,dispatch] = useReducer(AuthReducer,authIniciarState);
 
     return (
-        <AuthStateContext.Provider value={user}>
-            <AuthDispatchContext.Provider value={dispatch}>
-                {children}
-            </AuthDispatchContext.Provider>
-        </AuthStateContext.Provider>
+        <AuthStateContext.Provider value={usuario}>
+        <AuthDispatchContext.Provider value={dispatch}>
+            {children}
+        </AuthDispatchContext.Provider>
+    </AuthStateContext.Provider>
     )
 }
 

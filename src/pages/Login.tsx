@@ -32,11 +32,11 @@ const Login = () => {
               setEnviandoPeticion(true);
               setError("");
               const res=await loginUsuario(email,password);
-              const {token}=res.data
+              const token = res.data.token;
               authDispatch({
-                  type: 'login',
-                  token
-              });
+                type: 'login',
+                token
+            });     
         } catch (error: any) {
             if (error.response) {
                 error.response.status === 403 && setError("No se puede iniciar sesión con esas credenciales");

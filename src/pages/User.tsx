@@ -2,4 +2,4 @@ const User = () =>{
     return <div>user....</div>
 }
 
-export default User();
+export default User
