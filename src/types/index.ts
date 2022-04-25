@@ -16,6 +16,7 @@ export type RouteType = "PRIVATE" | "PUBLIC" | "GUEST";
 /**
  * type para las rutas
  */
+
 export type Route= {
     path:string,
     component:any,

@@ -21,7 +21,7 @@ const AppRoute = () => {
                 if(!usuario.isAutenticado){
                     return <Component {...routerProps}></Component>
                 }else{
-                    return <Redirect to="/usuario"></Redirect>
+                    return <Redirect to="/users"></Redirect>
                 }
             case "PUBLIC":
                 return <Component {...routerProps}></Component>
