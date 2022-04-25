@@ -11,18 +11,16 @@ function App() {
     <AuthProvider>
      <Router>
        <Switch>
-           {
-               routes.map(
-                   route=><AppRoute
-                       {
-                           component={route.component}
-                           path={route.path}
-                           routeType={route.routeType}
-                           key={route.path}
-                           exact
-                       }></AppRoute>
-               );
-           }
+         {
+           routes.map(route=><AppRoute
+              component={route.component}
+              path={route.path}
+              routeType={route.routeType}
+              key={route.path}
+              exact
+           ></AppRoute>)
+         }
+          
        </Switch>
      </Router>
     </AuthProvider>
